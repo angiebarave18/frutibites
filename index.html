@@ -924,7 +924,9 @@ function heroScene(){
   for(let i=0;i<N;i++){
     const o=makers[kinds[i%kinds.length]]();
     let x=(Math.random()*2-1)*9, y=(Math.random()*2-1)*5, z=-Math.random()*6;
-    if(x<1 && x>-8 && z>-3) z-=3;               // aleja las frutas que quedan detrás del texto
+    // En pantallas anchas, las frutas que caerían detrás del texto se mueven a la derecha o a los bordes
+    if(innerWidth>=860 && x<1.5 && y>-3.6 && y<3.8){ if(Math.random()<.7) x=2+Math.random()*7; else y=Math.random()<.5?4.3+Math.random():-4.3-Math.random(); }
+    if(innerWidth<860){ z-=4; }                 // en móvil quedan más al fondo (más pequeñas)
     o.position.set(x,y,z);
     o.rotation.set(Math.random()*6,Math.random()*6,Math.random()*6);
     const s=.6+Math.random()*.7; o.scale.multiplyScalar(s);
